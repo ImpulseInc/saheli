@@ -3,23 +3,12 @@ import axios from './axiosUrl';
 class AuthServices {
 
     register(data) {
-        return axios.post('/auth/user/',data)
+        return axios.post('/signup',data)
  }
-
-    otp(data){
-        return axios.post("/auth/verify/",data)
-    }
-
-
-    otpResend(data){
-        return axios.post('/auth/otp/resend/',data)
-        
-
-    }
 
 
     login(data) {
-        return axios.post('/auth/login/',data)
+        return axios.post('/login',data)
        
     }
 
@@ -57,20 +46,29 @@ class AuthServices {
         return userName;
     }
 
-    CreateBoard(data){
-        return axios.post("/boards/",data,{
+    outside(data){
+        return axios.post("/outside",data,{
             headers: {
-                
-                Authorization: 'Bearer '+ localStorage.getItem('access')
+                Authorization: 'Bearer '+ localStorage.getItem('token')
             }
         });
     }
 
-    Boards(){
-        return axios.get(`boards/`,{
+    vehicle(data){
+        return axios.post('/vehicle',data,{
             headers: {
                 
-                Authorization: 'Bearer '+ localStorage.getItem('access')
+                Authorization: 'Bearer '+ localStorage.getItem('token')
+            
+            }
+        })
+    }
+
+    destination(data){
+        return axios.post('/destination',data,{
+            headers: {
+                
+                Authorization: 'Bearer '+ localStorage.getItem('token')
             
             }
         })

@@ -1,36 +1,44 @@
 import React, { Component } from "react";
 import Switch from "react-switch";
-import {Redirect} from "react-router-dom";
+import {Link,Redirect} from "react-router-dom";
+import AuthService from '../../ApiServices/services'
 
-class SwitchButton extends Component {
-  constructor() {
-    super();
-    this.state = { checked: false };
-    this.state = {redirect:'sa'};
-    this.handleChange = this.handleChange.bind(this);
-  }
+ export default function SwitchButton(){
 
-  handleChange(checked) {
-    this.setState({ checked });
-    
-  }
+  const [checked,checkHandler] =React.useState( JSON.parse(localStorage.getItem('outside')));
+  const [redirect,redirectHandler] =React.useState(null);
+  
 
-
-  render() {
-      if(this.state.checked){
-          return <Redirect to="/travelForm" />
+  const handleChange=(checked)=> {
+    //this.setState({ checked });
+    AuthService.outside({outside:checked})
+    .then(res=>{
+      console.log(res)
+      if(res.data.Type == "Success")
+      {
+        redirectHandler("/travelForm");
+        checkHandler(true)
+         localStorage.setItem('outside',true);
       }
+       //this.setState({redirect:"/travelForm"})}
+    
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
 
+  if(redirect){
+    return <Redirect to={redirect} />
+  }
+    console.log(checked)
+     
     return (
     
         <Switch 
-        onChange={this.handleChange} 
+        onChange={handleChange} 
         className="toggler-button" 
-        checked={this.state.checked}
-        offColor={"#F50057"} />
-    
+        checked={checked}
+        offColor={"#F50057"} />    
     );
-  }
 }
-
-export default SwitchButton;

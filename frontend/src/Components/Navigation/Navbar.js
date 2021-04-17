@@ -60,24 +60,8 @@ class Navbar extends Component {
        LoginLinks = ( 
        
        <ul className="navbar-nav ml-auto">
-  
-        <li className="nav-item">
-            <Link to={`/user/${localStorage.getItem('userId')}/`} style={{ textDecoration: 'none' }}><Avatar className="avatar">{firstLetter[0].toUpperCase()}</Avatar></Link>
-        </li>
-
-        <li className="nav-item"> 
-            <NavLink to="/login" onClick={this.logout} activeClassName="btnactive"
-             className="nav-link home Signupbtn logout">Logout</NavLink>
-        </li>
-    </ul>
-
-    ); 
-
-      if(localStorage.getItem('access') === null){
-
-        LoginLinks =( <ul className="navbar-nav ml-auto">
-
-          <li className="nav-item">
+        
+      <li className="nav-item">
               <EmergencyModal/>
           </li>
 
@@ -92,6 +76,23 @@ class Navbar extends Component {
               </span>
                     
             </li>
+        <li className="nav-item">
+            <Link to={`/user/${localStorage.getItem('userId')}/`} style={{ textDecoration: 'none' }}><Avatar className="avatar">{firstLetter[0].toUpperCase()}</Avatar></Link>
+        </li>
+
+        <li className="nav-item"> 
+            <NavLink to="/login" onClick={this.logout} activeClassName="btnactive"
+             className="nav-link home Signupbtn logout">Logout</NavLink>
+        </li>
+    </ul>
+
+    ); 
+
+      if(localStorage.getItem('token') === null){
+
+        LoginLinks =( <ul className="navbar-nav ml-auto">
+
+         
 
               <li className="nav-item">
                   <NavLink to="/signup" activeClassName="btnactive" className="nav-link home Signupbtn">Signup</NavLink>

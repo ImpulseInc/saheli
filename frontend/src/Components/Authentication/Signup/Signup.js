@@ -13,12 +13,27 @@ class Signup extends Component {
 
     state = { 
             Form:{
-                 profile: {
+                 firstName: {
 
-                    placeholder: 'First Name',
-                    name: {
-                        value:"",
+                    placeholder: 'name',
+                    value: "",
+                    valid: false,
+                    type: 'text',
+                    error: " ",
+                    msg: '',
+
+                    validation: {
+                        required: true,
+                        minLength:3,
+                        maxLength:15
                     },
+
+                    touched: false,
+                
+            },
+
+                username:{
+                    placeholder: 'Username',
                     value: "",
                     valid: false,
                     type: 'text',
@@ -33,7 +48,7 @@ class Signup extends Component {
 
                     touched: false,
                 
-            },
+                },
                 email: {
 
                     placeholder: 'Email',
@@ -73,7 +88,7 @@ class Signup extends Component {
             
 
 
-            ConfirmPassword: {
+            confirmPassword: {
 
                 placeholder: 'Confirm Password',
                 value: "",
@@ -85,6 +100,25 @@ class Signup extends Component {
                 validation: {
                     required: true,
                     match: true,
+                   
+                },
+                touched: false,
+
+            },
+
+            aadhaar: {
+
+                placeholder: 'Adhar Number',
+                value: "",
+                valid: false,
+                type: 'Number',
+                error: " ",
+                msg: '',
+
+                validation: {
+                    required: true,
+                    minLength:12,
+                    maxLength:12
                    
                 },
                 touched: false,
@@ -248,39 +282,23 @@ inputBlurHandler = (event,inputIdentifier)=> {
             const formData ={};
             for(let formElement in this.state.Form){
                     formData[formElement]=this.state.Form[formElement].value;
-                    if(formElement ==='profile'){
-
-                        formData[formElement]={
-                            name:this.state.Form[formElement].value,
-                        }
-                    }
             }
-            
-            console.log(formData);
-           
-
-
+            formData['lastName']="ok"
+            console.log(formData)
             
             AuthService.register(formData) 
             .then(response => {console.log('Response:', response)
 
-                if(response.status ===201 || response.status ===200){
-                     
                      localStorage.setItem("email",this.state.Form.email.value);
-                   
-                     
-                     this.setState({ redirect: "/signup/otp" });
+                     this.setState({ redirect: "/login" });
                   
-                }
-                 
-
                 })
                   //  alert("Something went wrong")})
 
             .catch(error=>{console.log(error.response);
                  this.setState({loading:false})
                  console.log(error.response)
-                 this.setState({text:error.response.data.detail, type: "error"})
+                 //this.setState({text:error.response.data.detail, type: "error"})
                 } );
             
             
@@ -322,7 +340,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
             });
 
         };
-
+       
         let SigninSumbitButton= <SumbitButton className={"Sumbit-btn"} Label={"Create Account"}/>;
    
         if(this.state.loading){

@@ -29,7 +29,7 @@ function App() {
      <Route path="/travelForm" component={TravellingForm}/>
      <Route path="/group" component={Group}/>
     
-     <Redirect to="/signup"/> 
+     <Redirect to="/dashboard"/> 
 
 
      </Switch>

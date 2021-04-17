@@ -18,24 +18,23 @@ class Login extends Component {
     state = { 
             Form:{
                  
-                email: {
-
-                    placeholder: 'Email',
+                username:{
+                    placeholder: 'Username',
                     value: "",
                     valid: false,
-                    type: 'email',
+                    type: 'text',
                     error: " ",
                     msg: '',
-                    
 
                     validation: {
                         required: true,
-                        regex:/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/
-                       
+                        minLength:5,
+                        maxLength:15
                     },
+
                     touched: false,
                 
-            },
+                },
 
                 password: {
 
@@ -181,28 +180,26 @@ inputBlurHandler = (event,inputIdentifier)=> {
         if(this.OverallValidity()){
             this.setState({loading:true});
            
-            localStorage.setItem('email',this.state.Form["email"].value);
+            localStorage.setItem('username',this.state.Form["username"].value);
          
             const formData ={};
             for(let formElement in this.state.Form){
                     formData[formElement]=this.state.Form[formElement].value;
             }
            
-
+            console.log(formData)
 
             
             AuthService.login(formData) 
             .then(response => {console.log('Response:', response)
 
-                if(response.status ===201 || response.status ===200){
-                     localStorage.setItem('access', response.data.access);
-                     localStorage.setItem('refresh', response.data.refresh);
-                     localStorage.setItem('userName',response.data.name); 
-                     localStorage.setItem('userId',response.data.user_id); 
+         
+                     localStorage.setItem('token', response.data.token);
+                     localStorage.setItem('outside','null')
+                    // localStorage.setItem('userId',response.data.user_id); 
 
 
-                     this.setState({ redirect: "/home" });
-                }
+                     this.setState({ redirect: "/dashboard" });
                  
 
                 })
@@ -212,9 +209,9 @@ inputBlurHandler = (event,inputIdentifier)=> {
                  this.setState({loading:false})
                  
                  this.setState({text:error.response.data.detail, type: "error"})
-                 if(error.response.request.statusText === "Forbidden"){
-                    this.setState({ redirect: "/signup/otp" });
-                 }
+                 //if(error.response.request.statusText === "Forbidden"){
+                //    this.setState({ redirect: "/signup/otp" });
+               //  }
                 } );
             
             
