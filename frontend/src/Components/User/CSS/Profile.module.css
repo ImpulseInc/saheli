@@ -1,0 +1,190 @@
+
+.profileSection{
+    background:#F4F5F7;
+    height:250px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile{
+    display:flex;
+    flex-wrap:nowrap;
+    margin-top:30px;
+    align-items: flex-start;
+
+}
+.profile_picture img{
+    width:100px;
+    height:100px;
+    border-radius: 50%;
+}
+.flex_col_center{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.profile_personal{
+    display:flex;
+    flex-direction: column;
+    margin-left:35px;
+    margin-right:35px;
+}
+
+.avatar{
+   
+    width:100px;
+    height:100px;
+    background: #9263ff;
+}
+.userName,.user_age,.user_location,.group_members{
+    margin-left:20px;
+    margin-right:20px;
+}
+
+.userName{
+    font-size:26px;  
+    
+}
+.user_age{
+    font-size:15px;
+    
+}
+.user_location{
+    font-size:17px;
+}
+.group{
+    display: flex;
+    flex-direction: column;
+    border-radius:7px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height:150px;
+}
+
+.group_members{
+    font-size:17px;  
+    cursor: pointer;
+}
+.group_members:hover{
+    opacity: 0.6;
+}
+
+.userId{
+    color:rgb(192, 195, 202);
+    font-size:16px;
+}
+.AboutSection{
+    margin:10px;
+
+}
+.AboutText{
+    color:#172b4d;
+    font-size:21px;
+    margin-top:10px;   
+}
+
+.About{
+    color:#172b4d;
+    font-size:21px;
+    margin-top:0px;
+    margin-bottom:20px;
+}
+
+.bio{
+    display: flex;
+    flex-wrap:wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:20px;
+    margin-bottom:20px;
+    font-family:"Montserrat";
+}
+
+.user h5 , .bioDesc h5{
+    color:#172b4d;
+    font-size:15px;
+    margin-bottom:5px;
+    font-weight:4000;
+}
+
+.bioDesc h5{
+    margin-top:10px;
+}
+
+.bio button{
+    border:none;
+    box-shadow: none;
+    width:300px;
+    margin-top:25px;
+    text-align: center;
+    background:#61BD4F;
+    color:white;
+    padding:4px;
+    border-radius:4px;
+}
+
+.input{
+    border: 2px solid rgb(192, 195, 202);;
+    border-radius:4px;
+    padding:4px;
+    box-shadow: none;
+    width:300px;
+
+}
+
+.input:active, .input:focus{
+    border: 2px solid #9263FF;
+}
+.input:hover {
+    background:rgb(235, 233, 233);
+}
+
+
+input[type="file"] {
+    display:none;
+}
+
+.custom_image_upload {
+  position: relative;
+  display: block;
+  margin: 30px auto;
+  padding: 6px;
+  font-size:15px;
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+
+  transition: all .3s;
+}
+.custom_image_upload:hover{
+    opacity:0.7;
+}
+
+@media (max-width:500px){
+ 
+    .input,.bio button{
+        width:250px;
+    }
+    .profileSection{
+        height:100px;
+    }
+    
+   
+    .avatar{
+        width:50px;
+        height:50px;
+    }
+    
+    .userName{
+        font-size:20px;
+        margin-left:10px;
+        margin-right:10px;
+        color:#0C3953;
+    
+    }
+}
