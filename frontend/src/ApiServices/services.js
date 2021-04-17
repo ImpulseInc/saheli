@@ -74,12 +74,18 @@ class AuthServices {
         })
     }
 
-     StarringBoards(BoardId,data){
-        return axios.put(`boards/${BoardId}/star/`,data,{
+     location(data){
+        return axios.post("/location",data,{
             headers: {
-                
-                Authorization: 'Bearer '+ localStorage.getItem('access')
+                Authorization: 'Bearer '+ localStorage.getItem('token')
             
+            }
+        })
+    }
+    nearme(data){
+        return axios.post("/nearme",data,{
+            headers: {
+                Authorization: 'Bearer '+ localStorage.getItem('token')
             }
         })
     }

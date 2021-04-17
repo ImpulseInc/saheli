@@ -1,19 +1,39 @@
-import React, {Component,useState} from 'react';
+import React from 'react';
 import { MapContainer, TileLayer, Tooltip,Marker,Popup, Rectangle,Circle,Polygon} from 'react-leaflet';
 import  './dashboard.css';
 import AddMarker from './AddMarker';
 import Navbar from '../Navigation/Navbar';
 import  NativeSelects from './filters';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+// import { makeStyles } from '@material-ui/core/styles';
+// import Button from '@material-ui/core/Button';
 import Content from './toolContent';
 import Key from './key';
+import AuthService from '../../ApiServices/services';
+import useInterval from '@use-it/interval';
 
-
-class Dashboard extends Component {
-    
+export default function Dashboard(){ 
   
-    render() {
+    useInterval(()=>{
+        let data = {}
+        if(navigator.geolocation){
+           navigator.geolocation.getCurrentPosition(function(position) {
+                data["lon"]=position.coords.longitude;           
+                data["lat"]=position.coords.latitude;
+                AuthService.location(data)
+                .then(res=>{
+                   // console.log(res.response)
+                   // undefined for some reason
+                })
+                .catch(err=>{
+                    console.log(err.response);
+                })
+            
+              });
+        }
+        
+    }, 200000);
+
+
         const place = [{
             title:"gijore",
             name:"rik",
@@ -100,7 +120,5 @@ class Dashboard extends Component {
             </div>
         </>
      );
-    }
+    
   }
-
-export default Dashboard;
