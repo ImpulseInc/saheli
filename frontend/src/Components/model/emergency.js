@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import Button from '@material-ui/core/Button';
+import AuthService from '../../ApiServices/services'
 
 const customStyles = {
   content : {
@@ -35,7 +36,31 @@ export default function EmergencyModal(){
     }
     const [emergency,emergencyHandler] = React.useState(false);
 
+    const EmergencyAlert=()=>{
+      let form={}
+      form["emergency"]=true;
+      AuthService.emergency(emergency)
+      .then(res=>{
+        console.log(res)
+        alert("Emergency registered successfully")
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
  
+    const StopEmergencyAlert=()=>{
+      let form={}
+      form["emergency"]=false;
+      AuthService.emergency(emergency)
+      .then(res=>{
+        console.log(res)
+        alert("Emergency stoped successfully")
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
  
     return (
       <div>
@@ -55,8 +80,8 @@ export default function EmergencyModal(){
                
             <h4  ref={_subtitle => (subtitle = _subtitle)}><b>Are you sure that you are in emergency!?</b></h4>
             <p style={{fontSize:"14px"}}>* Confirming this will alert your fellow saheli users about your emergency.</p>
-            <Button style={{marginRight:"15px"}} onClick={()=>{alert("request sent to server")}} variant="contained" color="primary">Yes</Button>
-            <Button onClick={closeModal} variant="contained" color="secondary">No</Button>
+            <Button style={{marginRight:"15px"}} onClick={()=>EmergencyAlert()}  variant="contained" color="secondary">Alert</Button>
+            <Button onClick={()=>StopEmergencyAlert()} variant="contained" color="primary">Stop Alert</Button>
                 
             </Modal>
       </div>

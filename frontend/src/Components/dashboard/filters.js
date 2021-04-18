@@ -6,6 +6,9 @@ import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button';
 import './dashboard.css'
+import TextField from '@material-ui/core/TextField';
+import AuthService from '../../ApiServices/services'
+
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -19,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NativeSelects() {
   const classes = useStyles();
+  const [distance,distanceHandler]=React.useState(0);
   const [state, setState] = React.useState({
     age: '',
     name: 'hai',
@@ -32,29 +36,31 @@ export default function NativeSelects() {
     });
   };
 
+  const editHandler=(event)=>{
+      distanceHandler(event.target.value);
+  }
+  const SumbitHandler=(e)=>{
+      e.preventDefault();
+      const form ={}
+      form['range']=distance;
+      form['age']=state.age;
+      AuthService.range(form)
+      .then(res=>{
+        console.log(res);
+      })
+      .catch(err=>{
+        console.log(err.response);
+      })
+  }
+
   return (
  <div className="filter">
 
     <div>
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="age-native-helper">Location distance</InputLabel>
-        <NativeSelect
-          value={state.location}
-          onChange={handleChange}
-          inputProps={{
-            name: 'location',
-            id: 'age-native-helper',
-          }}
-        >
-          <option value={10}>0-2 km</option>
-          <option value={20}>2-5 km</option>
-          <option value={30}>5-7 km</option>
-        </NativeSelect>
-        <FormHelperText>Preferrable Location distance</FormHelperText>
-      </FormControl>
+    <TextField className={"distance"} type="text" onChange={(e)=>editHandler(e)} id="distance" label="distance filter (km)" required />
 
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="age-native-helper">Age group</InputLabel>
+        
         <NativeSelect
           value={state.age}
           onChange={handleChange}
@@ -63,16 +69,16 @@ export default function NativeSelects() {
             id: '',
           }}
         >
-          <option value={10}>15-20</option>
-          <option value={20}>20-30</option>
-          <option value={30}>30-40</option>
+          <option value={17}>15-20</option>
+          <option value={25}>20-30</option>
+          <option value={35}>30-40</option>
         </NativeSelect>
-        <FormHelperText>Preferrable age group</FormHelperText>
+      
       </FormControl>
 
     </div>
 
-    <Button variant="contained" className="find_button" color="primary">Find Saheli</Button>
+    <Button onClick={(e)=>SumbitHandler(e)} variant="contained" className="find_button" color="primary">Find Saheli</Button>
 
 </div>
   );

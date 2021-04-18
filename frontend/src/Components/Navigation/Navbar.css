@@ -1,8 +1,7 @@
 .navbar-collapse{
     justify-content: space-around !important;
+    
 }
-
-
 .navbar{
     background-color: white;
     box-shadow: 0px 3px 11px #BAD8FD40 !important;
@@ -10,7 +9,6 @@
     z-index:100;
     
 }
-
 
 .navbar-brand{
     color:rgba(0, 0, 0, 0.541)!important;
@@ -51,7 +49,6 @@
     color:rgba(0, 0, 0, 0.541);
     padding-left:6px;
     font-weight:bolder;
-    
 }
 
 .Logo-specs{
@@ -91,8 +88,6 @@
 }
 
 
-
-
 .profileName{
     font: normal normal 200 17px/23px Gilroy;
     color:rgba(13, 22, 46, 0.76) !important;
@@ -106,18 +101,17 @@
 }
 
 .dropdown-toggle{
-    color: #ffffff !important;
+    color: #F50057 !important;
+    background-color: #F50057 !important ;
+}
+.fa-bars bar-nav{
+    color:#F50057 !important;
 }
 
-
-.fa-bars {
-    color:rgba(0, 0, 0, 0.541);
-}
 .dropdown-item{
    
-    font: normal normal  17px/20px Gilroy;
     letter-spacing: 0.47px;
-    color: #ffffff;
+    color: #F50057  !important;
     opacity:0.7;
    
 }
@@ -160,27 +154,10 @@
 
 
 
-.bar-nav{
-    color:rgba(0, 0, 0, 0.541)!important;
-}
-
-.bar-nav-sub{
-    color:rgb(34, 32, 32)!important;
-}
-
-.usere{
-    margin-right:20px;
-}
-
-.avatar{
-    background:rgba(0, 0, 0, 0.541);
-    color:#89609E;
-}
-
-
 .toggler-button{
     transform: translateY(3px);
     margin-left:3px;
+    color: #F50057 !important;
 }
 
 @media (max-width:998px){
@@ -211,10 +188,3 @@
     
 }
     
-    
-
-.myClassName .myControlClassName .myMenuClassName{
-    background:red;
-    color:blue;
-    margin-left:10px;
-}

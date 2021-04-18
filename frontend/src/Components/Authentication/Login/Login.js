@@ -196,7 +196,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
          
                      localStorage.setItem('token', response.data.token);
                      localStorage.setItem('outside','null')
-                    // localStorage.setItem('userId',response.data.user_id); 
+                     localStorage.setItem('userName',response.data.username); 
 
 
                      this.setState({ redirect: "/dashboard" });

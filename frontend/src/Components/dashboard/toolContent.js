@@ -1,12 +1,13 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 export default function content(props){
     
     return (
         <div>
-            <p>{props.name}</p>
-            <p>{props.age}</p>
-            <p>{props.location}</p>
+            <Link to={`/profile/${props.name}`}><p>Username: {props.name}</p></Link>
+            <p>Destination: {props.destination}</p>
+            <p>Mode: {props.location}</p>
         </div>
     );
 }

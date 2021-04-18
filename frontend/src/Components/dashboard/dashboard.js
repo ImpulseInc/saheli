@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapContainer, TileLayer, Tooltip,Marker,Popup, Rectangle,Circle,Polygon} from 'react-leaflet';
+import { MapContainer, TileLayer, Tooltip,Marker,Popup,useMapEvents, Rectangle,Circle,Polygon} from 'react-leaflet';
 import  './dashboard.css';
 import AddMarker from './AddMarker';
 import Navbar from '../Navigation/Navbar';
@@ -10,9 +10,34 @@ import Content from './toolContent';
 import Key from './key';
 import AuthService from '../../ApiServices/services';
 import useInterval from '@use-it/interval';
+import * as L from "leaflet";
 
 export default function Dashboard(){ 
-  
+
+    //  Create the Icon
+  const LeafIcon = L.Icon.extend({
+    options: {}
+  });
+
+  const blueIcon = new LeafIcon({
+      iconUrl:
+      "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF"
+    }),
+    greenIcon = new LeafIcon({
+        iconUrl:
+          "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|2ecc71&chf=a,s,ee00FFFF"
+    }),
+    redIcon = new LeafIcon({
+        iconUrl:
+          "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+    })
+
+
+    const [users,setUser] =React.useState(null);
+   
+    let place=null;
+   
+
     useInterval(()=>{
         let data = {}
         if(navigator.geolocation){
@@ -21,7 +46,7 @@ export default function Dashboard(){
                 data["lat"]=position.coords.latitude;
                 AuthService.location(data)
                 .then(res=>{
-                   // console.log(res.response)
+                   console.log(res)
                    // undefined for some reason
                 })
                 .catch(err=>{
@@ -31,87 +56,119 @@ export default function Dashboard(){
               });
         }
         
-    }, 200000);
+    }, 100000);
 
+    useInterval(()=>{
 
-        const place = [{
-            title:"gijore",
-            name:"rik",
-            position:[41.505,-0.09],
-            age:"20"
-        },{
-            title:"sec 53",
-            name:"Ayush",
-            position:[41.501249547569905,-0.10213851928710939],
-            age:"21"
-        }]
+        AuthService.nearme()
+        .then(res=>{
+              setUser(res.data.data)
+              console.log(res)
+             
+              
+        })
+        .catch(err=>{
+            console.log(err.response);
+        })
+        
+    }, 1000000);
 
-        const multiPolygon = [
-            [
-              [41.505,-0.09],
-              [41.501249547569905,-0.10213851928710939],
-              [42.505,-0.08],
-            ],
-            [
-              [51.51, -0.05],
-              [51.51, -0.07],
-              [51.53, -0.07],
-            ],
-          ]
+   
+     if(users == null){
+        place =null 
+     } 
+     else {
+       // selfHandler([users[0][2][1],users[0][2][1]])
+       console.log(users)
 
-          const rectangle = [
-            [41.505,-0.09],
-            [41.501249547569905,-0.10213851928710939],
-          ]
-       
+         place =(
+            users[0].map((x,index)=>{
+             if(users[1].length !== index){
+                console.log(index) 
+           
+               const log=x[2][0];
+               const lat=x[2][1]
+               if(x.emergengy){
+                return(
+                    <Marker position={[lat,log]} 
+                    icon={redIcon }
+                    
+                    key={index}>
+                        <Popup
+                            direction="bottom" 
+                            offset={[-10, 20]} 
+                            opacity={1}>
+    
+                            <Content 
+                                name={x[0]} 
+                                destination={users[1][index].destination} 
+                                location={users[1][index].vehicle}/>
+    
+                        </Popup>   
+                        <Circle
+                            center={[lat,log]}                    
+                            pathOptions={{ fillColor: 'blue' }}
+                            radius={users[1][index].prefer}>
+                            <Tooltip>{x[0]}</Tooltip>
+                        </Circle>
+                    </Marker>   
+                    )
+               }
+               else{
+                return(
+                <Marker position={[lat,log]} 
+                icon={index==0? blueIcon :greenIcon }
+                
+                key={index}>
+                    <Popup
+                        direction="bottom" 
+                        offset={[-10, 20]} 
+                        opacity={1}>
+
+                        <Content 
+                            name={x[0]} 
+                            destination={users[1][index].destination} 
+                            location={users[1][index].vehicle}/>
+
+                    </Popup>   
+                    <Circle
+                        center={[lat,log]}                    
+                        pathOptions={{ fillColor: 'blue' }}
+                        radius={users[1][index].prefer}>
+                        <Tooltip>{x[0]}</Tooltip>
+                    </Circle>
+                </Marker>   
+                )
+            }}})
+         )
+     }
+
       return (
          <> 
             <Navbar/>
             <div className="dashboard">
               <div className="dashboard_map">
                     <MapContainer
-                    center={{ lat: 41.505, lng: -0.09 }}
-                    zoom={13}
+                    center={{ lat: 28.472539271419883, lng: 77.20691219155837 }}
+                    zoom={10}
                     scrollWheelZoom={false}
                     className="map"
                     >
+             
 
-                    {place.map((x,index)=>{
-                        console.log(x);
-                        return(
-                        <Marker position={x.position}
-                        key={x.name}>
-                            <Popup
-                                direction="bottom" 
-                                offset={[-10, 20]} 
-                                opacity={1}>
+                
+                    {place }
 
-                                <Content 
-                                    name={x.name} 
-                                    age={x.age} 
-                                    location={x.title}/>
-
-                            </Popup>   
-                            <Circle
-                                center={x.position}
-                            
-                                pathOptions={{ fillColor: 'blue' }}
-                                radius={400}>
-                                <Tooltip>{x.name}</Tooltip>
-                            </Circle>
-                        </Marker>   
-                        )
-                    }) }
                     <AddMarker/>
                     
-                    <Polygon pathOptions={{ color: 'purple' }} positions={multiPolygon}></Polygon>
+                   {/* // <Polygon pathOptions={{ color: 'purple' }} positions={multiPolygon}></Polygon> */}
                     <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                <Rectangle bounds={rectangle} pathOptions={{ color: 'black' }}>
+                {/* <Rectangle bounds={rectangle} pathOptions={{ color: 'black' }}>
                     
-                </Rectangle>
+                </Rectangle> */}
                     </MapContainer>
                     <Key/>
 

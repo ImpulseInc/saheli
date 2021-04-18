@@ -25,7 +25,10 @@ function App() {
      <Route path="/Verifyotp" component={OtpVerify}/>
      <Route path="/Login" exact component={Login}/>
      <Route path="/dashboard" exact component={Dashboard}/>
-     <Route path="/profile" exact component={Profile}/>
+     
+     <Route path="/profile/:username" exact render={props =>
+      <Profile key={props.location.pathname} {...props}/>}/>
+
      <Route path="/travelForm" component={TravellingForm}/>
      <Route path="/group" component={Group}/>
     

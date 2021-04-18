@@ -11,7 +11,7 @@ import AuthService from '../../ApiServices/services'
 
   const handleChange=(checked)=> {
     checkHandler(checked)
-    console.log(checked);
+    console.log("toggler=",checked);
     AuthService.outside({outside:checked})
     .then(res=>{
       console.log(res)

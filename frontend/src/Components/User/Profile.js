@@ -10,7 +10,7 @@ import Travelling from './travelling';
 function Profile(props){
 
     
-    const [userId,setuserId]=React.useState(props.match.params.userId);
+    const [username,setuserId]=React.useState(props.match.params.username);
     const [user,setUser]=React.useState(null);
     const [name,setUserName]=React.useState(null);
     const [userbioo,setUserBio]=React.useState(null);
@@ -22,17 +22,12 @@ function Profile(props){
     const [me,meHandler]=React.useState(null);
 
     React.useEffect( ()=>{
-        AuthService.Profile(userId)
+        AuthService.profile(username)
         .then(response => {
             console.log('Response:', response) 
-            if(response.status ===201 || response.status ===200 || response.status ===202) 
-                { 
-                setUser(response.data);
-            
-                }
-            
-            else if(response.status===401) alert("Something went wrong")})
-            
+        
+                setUser(response.data.data);
+        })
         .catch(error=>{console.log(error.response); 
            
             
@@ -51,65 +46,15 @@ function Profile(props){
         console.log(name)
      }
 
-      const sumbitHandler=()=>{
-
-        let formData={};
-        console.log("name=",name);
-        console.log("bio=",userbioo);
-        formData ={profile: {
-            "name":name,
-            "bio":userbioo,
-        }}
-        console.log(formData);
-        if(name == null){
-            if(user!==null){
-                 console.log("user didnt type anything");
-                 formData["profile"]["name"]=user.profile.name;
-                 formData["profile"]["bio"]=user.profile.bio;   
-            }
-            else setAlert({type:"warning",text:"Username can't be left blank"})
-        }
-        
-        if(formData['name']!==null){
-            AuthService.EditProfile(userId,formData)
-            .then(response => {
-
-                console.log('Response:', response) 
-                if(response.status ===201 || response.status ===200 || response.status ===202) 
-                
-                    { 
-                    
-                    setUser(response.data);
-                    setAlert({type:"success",text:"Successfully changed!"})
-                    
-                
-                    }})
-                
-                
-            .catch(error=>{console.log(error.response); 
-                setAlert({type:"warning",text:error.response.data.profile.name})
-                
-            })
-       }
-      }
-
-      const fileSelectorHandler = event =>{
-    
-        const image_file = event.target.files[0];
-        const image_name=URL.createObjectURL(event.target.files[0]);
-       
-        imageHandler(image_file);
-        imageNameHandler(image_name);
-    }
-      let userName,bio,id=null;
+      
+      let userName,destination,age,vehicle=null;
 
       if(user!==null){
-        userName=user.profile.name;
-        bio=user.profile.bio;
-        if(bio===null){
-            bio="I like organisation";
-        }
-        id=user.profile.id;
+        userName=user.username;
+        destination=user.destination;
+        vehicle=user.vehicle;
+        //age=user.age;
+       
     }
     
     let alert;
@@ -120,7 +65,7 @@ function Profile(props){
     const Profile_picture=(
         profile_picture == null ?  <Avatar className={styles.avatar}/> : 
         <div className={styles.profile_picture}>
-            <img src="/images/jennifer.jpg" alt="profile picture" />
+            <img src="/images/girlIcon.png" alt="profile picture" />
         </div>
     );
 
@@ -132,25 +77,12 @@ function Profile(props){
             <div className={styles.profile}>
                 <div className={styles.flex_col_center}>
                     {Profile_picture}
-
-                    <div className={styles.upload_image}>
-            
-                        <label className={styles.custom_image_upload}>
-                            <input type="file" name='file'  onChange={fileSelectorHandler}/>
-                                UPLOAD IMAGE
-                        </label>
-
-                        {/* <p className="ImageName">{image_name}</p>
-                        <img className="" 
-                            src={"this.state.Form.image.name"} alt="No file Selected"/> */}
-                    </div>
-
                 </div>    
 
               <div className={styles.profile_personal}>
-                <h5 className={styles.userName}>{"Jennifer Lawrence"}</h5>
-                <h5 className={styles.user_location}>{"Lives in Sector 53"}</h5>
-                <h5 className={styles.user_age}>{"21"}</h5>
+                <h5 className={styles.userName}>{username}</h5>
+                <h5 className={styles.user_location}>{destination}</h5>
+                <h5 className={styles.user_age}>{"age",age}</h5>
               </div>
               {friend === null ? <Button variant="contained" color="secondary">Request saheli</Button>
                 : <Button variant="contained" color="primary">Connected</Button>}
@@ -161,37 +93,13 @@ function Profile(props){
         <div className={styles.AboutSection}>
             <div className={styles.bio}>
 
-            {me===null ? 
-                <Travelling/>
-                
-                : 
-                <div>  
-                    <div className={styles.user}>
-                        <h4 className={styles.AboutText} >About user</h4>
-                        <hr className={styles.About}/>
-                        <h5>Username</h5>
-                        <input className={styles.input} type="text"
-                        defaultValue={userName}
-                        placeholder="Enter your name"
-                        onChange={(event)=>inputHandlerName(event)}/>
-                    </div>
-
-                
-                    <div className={styles.bioDesc}>
-                        <h5>location</h5>
-                        <input className={styles.input} type="text"
-                            defaultValue={bio}
-                            placeholder="edit your location"
-                            onChange={(event)=>inputHandlerBio(event)}/>
-                    </div>
-
-                    <button onClick={sumbitHandler} >Save</button>
-                </div>  
-            }
             
+                <Travelling vehicle={vehicle} destination={destination}/>
+            
+            
+            </div>
         </div>
-        </div>
-        </div>
+    </div>
     );    
 }
 

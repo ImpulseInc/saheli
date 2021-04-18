@@ -82,14 +82,38 @@ class AuthServices {
             }
         })
     }
-    nearme(data){
-        return axios.post("/nearme",data,{
+    nearme(){
+        return axios.get("/nearme_two",{
             headers: {
                 Authorization: 'Bearer '+ localStorage.getItem('token')
             }
         })
     }
 
+    range(data){
+        return axios.post("/range",data,{
+            headers: {
+                Authorization: 'Bearer '+ localStorage.getItem('token')
+            }
+        })
+    }
+
+    emergency(data){
+        return axios.post("/emer",data,{
+            headers: {
+                Authorization: 'Bearer '+ localStorage.getItem('token')
+            }
+        })
+    }
+    
+
+    profile(name){
+        return axios.get(`/details/${name}`,{
+            headers: {
+                Authorization: 'Bearer '+ localStorage.getItem('token')
+            }
+        })
+    }
 
 
 
