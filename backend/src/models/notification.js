@@ -2,13 +2,12 @@ const mongoose = require("mongoose")
 
 const notificationSchema = mongoose.Schema({
     issuer: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "user",
         required: true
     },
     issuee: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
+        type: String,
         required: true
     },
     seen: {

@@ -6,9 +6,10 @@ const auth = require("../middleware/auth")
 const router = express.Router();
 
 router.post('/signup' , authController.signup)
-router.get('/login' , authController.login)
+router.post('/login' , authController.login)
 router.post('/location' , auth, geoController.location)
-router.post('/nearme' , auth, geoController.nearme)
+router.get('/nearme' , auth, geoController.nearme)
+router.get('/nearme_two' , auth, geoController.nearme_two)
 router.post('/vehicle' , auth, geoController.vehicle)
 router.post('/destination' , auth, geoController.destination)
 router.post('/range' , auth, geoController.range)
@@ -20,5 +21,11 @@ router.get('/leavegroup' , auth, authController.leavegroup)
 router.get('/emergency' , auth, geoController.emergency_get)
 router.get('/victims' , auth, geoController.emergency_post)
 router.get('/leaveemergency' , auth, geoController.leave_emergency)
+router.get('/details/:username' , auth, authController.get_user_data)
+router.get('/mygroup' , auth, authController.my_group)
+router.post('/emer' , auth, authController.better_emergency)
+router.post('/report' , auth, authController.report)
+
+
 
 module.exports = router

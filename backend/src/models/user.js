@@ -67,7 +67,17 @@ const UserSchema = new mongoose.Schema({
     vehicle: {
         type: String,
         default: "walk",
-        enum: ["walk" , "taxi", "bus", "bicycle", "motorbike"]
+        enum: ["walk" , "taxi", "bus", "bicycle", "metro", "motorbike"]
+    },
+    emergency: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    age: {
+        type: Number,
+        default: 0,
+        required: true
     },
     danger: {
         type: Boolean,
