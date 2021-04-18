@@ -105,7 +105,30 @@ class AuthServices {
             }
         })
     }
-    
+
+    notification(data){
+        return axios.post("/notification",data,{
+            headers: {
+                Authorization: 'Bearer '+ localStorage.getItem('token')
+            }
+        })
+    }
+
+    Get_notification(){
+        return axios.get("/notification",{
+            headers: {
+                Authorization: 'Bearer '+ localStorage.getItem('token')
+            }
+        })
+    }
+
+    Accept_request(data){
+        return axios.post("/group",data,{
+            headers: {
+                Authorization: 'Bearer '+ localStorage.getItem('token')
+            }
+        })
+    }
 
     profile(name){
         return axios.get(`/details/${name}`,{

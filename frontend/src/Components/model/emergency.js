@@ -39,7 +39,7 @@ export default function EmergencyModal(){
     const EmergencyAlert=()=>{
       let form={}
       form["emergency"]=true;
-      AuthService.emergency(emergency)
+      AuthService.emergency(form)
       .then(res=>{
         console.log(res)
         alert("Emergency registered successfully")
@@ -52,7 +52,7 @@ export default function EmergencyModal(){
     const StopEmergencyAlert=()=>{
       let form={}
       form["emergency"]=false;
-      AuthService.emergency(emergency)
+      AuthService.emergency(form)
       .then(res=>{
         console.log(res)
         alert("Emergency stoped successfully")

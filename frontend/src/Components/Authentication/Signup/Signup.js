@@ -88,24 +88,7 @@ class Signup extends Component {
             
 
 
-            confirmPassword: {
-
-                placeholder: 'Confirm Password',
-                value: "",
-                valid: false,
-                type: 'password',
-                error: " ",
-                msg: '',
-
-                validation: {
-                    required: true,
-                    match: true,
-                   
-                },
-                touched: false,
-
-            },
-
+            
             aadhaar: {
 
                 placeholder: 'Adhar Number',
@@ -123,9 +106,26 @@ class Signup extends Component {
                 },
                 touched: false,
 
-            }
+            },
 
-        },
+        age: {
+
+            placeholder: 'Age',
+            value: "",
+            valid: false,
+            type: 'Number',
+            error: " ",
+            msg: '',
+
+            validation: {
+              
+               
+            },
+            touched: false,
+
+        }
+
+    },
 
         loading:false,
         redirect:null,
@@ -284,6 +284,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
                     formData[formElement]=this.state.Form[formElement].value;
             }
             formData['lastName']="ok"
+            formData['confirmPassword']=this.state.Form['password'].value;
             console.log(formData)
             
             AuthService.register(formData) 

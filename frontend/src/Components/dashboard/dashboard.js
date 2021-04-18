@@ -42,8 +42,8 @@ export default function Dashboard(){
         let data = {}
         if(navigator.geolocation){
            navigator.geolocation.getCurrentPosition(function(position) {
-                data["lon"]=position.coords.longitude;           
-                data["lat"]=position.coords.latitude;
+                data["lon"]=100;           
+                data["lat"]=30;                
                 AuthService.location(data)
                 .then(res=>{
                    console.log(res)
@@ -56,7 +56,7 @@ export default function Dashboard(){
               });
         }
         
-    }, 100000);
+    }, 1000000);
 
     useInterval(()=>{
 
@@ -71,7 +71,7 @@ export default function Dashboard(){
             console.log(err.response);
         })
         
-    }, 1000000);
+    }, 11000);
 
    
      if(users == null){
@@ -88,7 +88,9 @@ export default function Dashboard(){
            
                const log=x[2][0];
                const lat=x[2][1]
-               if(x.emergengy){
+            
+               if(users[1][index].emergengy){
+                   console.log("emergency")
                 return(
                     <Marker position={[lat,log]} 
                     icon={redIcon }
@@ -101,6 +103,7 @@ export default function Dashboard(){
     
                             <Content 
                                 name={x[0]} 
+                                distance={x[1]}
                                 destination={users[1][index].destination} 
                                 location={users[1][index].vehicle}/>
     
@@ -117,7 +120,7 @@ export default function Dashboard(){
                else{
                 return(
                 <Marker position={[lat,log]} 
-                icon={index==0? blueIcon :greenIcon }
+                icon={index==0 ? blueIcon :greenIcon }
                 
                 key={index}>
                     <Popup
@@ -127,6 +130,7 @@ export default function Dashboard(){
 
                         <Content 
                             name={x[0]} 
+                            distance={x[1]}
                             destination={users[1][index].destination} 
                             location={users[1][index].vehicle}/>
 

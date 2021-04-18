@@ -6,7 +6,7 @@ import AuthService from '../../ApiServices/services'
  export default function SwitchButton(){
 
   const [checked,checkHandler] =React.useState(false);
-  const [redirect,redirectHandler] =React.useState(null);
+  //const [redirect,redirectHandler] =React.useState(null);
   
 
   const handleChange=(checked)=> {
@@ -15,10 +15,10 @@ import AuthService from '../../ApiServices/services'
     AuthService.outside({outside:checked})
     .then(res=>{
       console.log(res)
-      if(res.data.Type == "Success")
+      if(res.data.Message)
       {
-        redirectHandler("/travelForm");
-         localStorage.setItem('outside',true);
+   //      redirectHandler("/travelForm");
+         //localStorage.setItem('outside',true);
       }
        //this.setState({redirect:"/travelForm"})}
     
@@ -28,9 +28,9 @@ import AuthService from '../../ApiServices/services'
     })
   }
 
-  if(redirect){
-    return <Redirect to={redirect} />
-  }
+  // if(redirect){
+  //   return <Redirect to={redirect} />
+  // }
     console.log(checked)
      
     return (

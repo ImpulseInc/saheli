@@ -12,8 +12,8 @@ export default function travelling(props) {
          </div>
             <div className={styles.travel}>
             <div className={styles.travel_left}>
-                    <p>From</p>
-                    <h1>Sector 53</h1>
+                    <p>Age</p>
+                    <h1>{props.age}</h1>
                     <h4>by {props.vehicle}</h4>
             </div>
 

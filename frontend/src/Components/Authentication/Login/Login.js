@@ -199,7 +199,7 @@ inputBlurHandler = (event,inputIdentifier)=> {
                      localStorage.setItem('userName',response.data.username); 
 
 
-                     this.setState({ redirect: "/dashboard" });
+                     this.setState({ redirect: "/travelForm" });
                  
 
                 })

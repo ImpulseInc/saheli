@@ -5,6 +5,7 @@ import { Avatar } from '@material-ui/core';
 import SwitchButton from '../Button/switch';
 import NotificationsNoneRoundedIcon from '@material-ui/icons/NotificationsNoneRounded';
 import './notification.css';
+import Notification from './notification';
 
 import EmergencyModal from '../model/emergency';
 
@@ -14,9 +15,7 @@ class Navbar extends Component {
     state = {
         isLoggedIn:false,
         userName:localStorage.getItem('userName'),
-        redirect:null,
-        
-        
+        redirect:null,        
     }
 
 
@@ -50,12 +49,7 @@ class Navbar extends Component {
           return <Redirect to={this.state.redirect} />
         
       let notification =
-      ( <div className="notification">
-        <div className="notification_block">
-            <p>Srishti sent you notificaiton</p>
-            <p>notification 2</p>
-        </div>
-      </div> )
+      ( <Notification/> )
 
        LoginLinks = ( 
        
@@ -77,7 +71,8 @@ class Navbar extends Component {
                     
             </li>
         <li className="nav-item">
-            <Link to={`/user/${localStorage.getItem('userId')}/`} style={{ textDecoration: 'none' }}><Avatar className="avatar">{firstLetter[0].toUpperCase()}</Avatar></Link>
+            <Link to={`/profile/${localStorage.getItem('username')}/`} style={{ textDecoration: 'none' }}>
+              <Avatar className="avatar">{firstLetter[0].toUpperCase()}</Avatar></Link>
         </li>
 
         <li className="nav-item"> 
