@@ -98,7 +98,7 @@ export default function Dashboard(){
                     }
                })
                console.log(users[1][magic_number]["emergency"])
-
+//comment
             //    if(users[1][magic_number]["emergengy"]){
             //        console.log("emergency")
                   
