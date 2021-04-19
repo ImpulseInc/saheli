@@ -13,30 +13,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@frontend
+        uses: actions/checkout@v2
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Build dependencies
         run: npm run build
       - name: Archive production artifact
-        uses: actions/upload-artifact@frontend
+        uses: actions/upload-artifact@v2
         with:
-          name: dist
-          path: dist
+          name: build
+          path: build
   deploy:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@frontend
+        uses: actions/checkout@v2
       - name: Download artifact
-        uses: actions/download-artifact@frontend
+        uses: actions/download-artifact@v2
         with:
-          name: dist
-          path: dist
+          name: build
+          path: build
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@frontend
+        uses: w9jds/firebase-action@v2
         with:
           args: deploy --only hosting
         env: 
