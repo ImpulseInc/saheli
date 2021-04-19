@@ -26,6 +26,9 @@ jobs:
         run: CI='' npm run build
       - name: Archive production artifact
         uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build
 
   deploy:
     name: Deploy
