@@ -4,8 +4,14 @@ on:
   push:
     branches: [ frontend ]
     
+
+    
   # Run workflow manually
   workflow_dispatch:
+  
+defaults:
+  run:
+    working-directory: frontend
 
 jobs:
   build:
@@ -20,9 +26,7 @@ jobs:
         run: npm run build
       - name: Archive production artifact
         uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: build
+
   deploy:
     name: Deploy
     needs: build
@@ -36,6 +40,7 @@ jobs:
           name: build
           path: build
       - name: Deploy to Firebase
+      
         uses: w9jds/firebase-action@v2
         with:
           args: deploy --only hosting
