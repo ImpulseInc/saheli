@@ -45,4 +45,5 @@ jobs:
         with:
           args: deploy --only hosting
         env: 
+          CI: false npm run build
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
