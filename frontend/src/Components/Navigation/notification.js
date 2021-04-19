@@ -46,7 +46,7 @@ export default function Notificaiton(props){
         AuthService.Accept_request(form)
         .then(res=>{
             console.log(res)
-            alert('requested accepted')
+            alert('request accepted')
       })
       .catch(err=>{
           console.log(err);

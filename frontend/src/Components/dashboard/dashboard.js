@@ -42,8 +42,9 @@ export default function Dashboard(){
         let data = {}
         if(navigator.geolocation){
            navigator.geolocation.getCurrentPosition(function(position) {
-                data["lon"]=100;           
-                data["lat"]=30;                
+                 data["lon"]=position.coords.longitude;           
+                data["lat"]=position.coords.latitude;     
+                          
                 AuthService.location(data)
                 .then(res=>{
                    console.log(res)
@@ -56,7 +57,7 @@ export default function Dashboard(){
               });
         }
         
-    }, 1000000);
+    }, 5000);
 
     useInterval(()=>{
 
@@ -71,7 +72,7 @@ export default function Dashboard(){
             console.log(err.response);
         })
         
-    }, 11000);
+    }, 5100);
 
    
      if(users == null){
@@ -88,39 +89,50 @@ export default function Dashboard(){
            
                const log=x[2][0];
                const lat=x[2][1]
-            
-               if(users[1][index].emergengy){
-                   console.log("emergency")
-                return(
-                    <Marker position={[lat,log]} 
-                    icon={redIcon }
+               var counter=-1;
+               var magic_number=0;
+               users[1].forEach(element=>{
+                    counter++;
+                    if(x[0]===element.username){
+                        magic_number=counter;
+                    }
+               })
+               console.log(users[1][magic_number]["emergency"])
+
+            //    if(users[1][magic_number]["emergengy"]){
+            //        console.log("emergency")
+                  
+            //     return(
+            //         <Marker position={[lat,log]} 
+            //         icon={redIcon }
                     
-                    key={index}>
-                        <Popup
-                            direction="bottom" 
-                            offset={[-10, 20]} 
-                            opacity={1}>
+            //         key={index}>
+            //             <Popup
+            //                 direction="bottom" 
+            //                 offset={[-10, 20]} 
+            //                 opacity={1}>
     
-                            <Content 
-                                name={x[0]} 
-                                distance={x[1]}
-                                destination={users[1][index].destination} 
-                                location={users[1][index].vehicle}/>
+            //                 <Content 
+            //                     name={x[0]} 
+            //                     distance={x[1]}
+            //                     destination={users[1][magic_number].destination} 
+            //                     location={users[1][magic_number].vehicle}/>
     
-                        </Popup>   
-                        <Circle
-                            center={[lat,log]}                    
-                            pathOptions={{ fillColor: 'blue' }}
-                            radius={users[1][index].prefer}>
-                            <Tooltip>{x[0]}</Tooltip>
-                        </Circle>
-                    </Marker>   
-                    )
-               }
-               else{
+            //             </Popup>   
+            //             <Circle
+            //                 center={[lat,log]}                    
+            //                 pathOptions={{ fillColor: 'blue' }}
+            //                 radius={users[1][magic_number].prefer}>
+            //                 <Tooltip>{x[0]}</Tooltip>
+            //             </Circle>
+            //         </Marker>   
+            //         )
+            //    }
+            //    else{
+               
                 return(
                 <Marker position={[lat,log]} 
-                icon={index==0 ? blueIcon :greenIcon }
+                icon={greenIcon }
                 
                 key={index}>
                     <Popup
@@ -131,19 +143,20 @@ export default function Dashboard(){
                         <Content 
                             name={x[0]} 
                             distance={x[1]}
-                            destination={users[1][index].destination} 
-                            location={users[1][index].vehicle}/>
+                            destination={users[1][magic_number].destination} 
+                            location={users[1][magic_number].vehicle}/>
 
                     </Popup>   
                     <Circle
                         center={[lat,log]}                    
                         pathOptions={{ fillColor: 'blue' }}
-                        radius={users[1][index].prefer}>
+                        radius={users[1][magic_number].prefer}>
                         <Tooltip>{x[0]}</Tooltip>
                     </Circle>
                 </Marker>   
                 )
-            }}})
+            //}
+            }})
          )
      }
 

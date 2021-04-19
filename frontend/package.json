@@ -12,6 +12,7 @@
     "@use-it/interval": "^1.0.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "firebase-tools": "^9.10.0",
     "jquery": "^3.6.0",
     "leaflet": "^1.7.1",
     "popper.js": "^1.16.1",
