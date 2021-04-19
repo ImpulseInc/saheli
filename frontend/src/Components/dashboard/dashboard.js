@@ -78,7 +78,7 @@ export default function Dashboard(){
         place =null 
      } 
      else {
-       // selfHandler([users[0][2][1],users[0][2][1]])
+       // selfHandler([users[0][2][1],users[0][2][1]])/
        console.log(users)
 
          place =(
