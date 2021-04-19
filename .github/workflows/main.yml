@@ -15,10 +15,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Install dependencies
-        working-directory: ../frontend
+        working-directory: cd frontend
         run: npm install
       - name: Build dependencies
-        working-directory: ../frontend
+        working-directory: cd frontend
         run: npm run build
       - name: Archive production artifact
         uses: actions/upload-artifact@v2
