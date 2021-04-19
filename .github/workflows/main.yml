@@ -13,13 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@frontend
+        uses: actions/checkout@v1
       - name: Install dependencies
         run: npm ci
       - name: Build dependencies
         run: npm run build
       - name: Archive production artifact
-        uses: actions/upload-artifact@frontend
+        uses: actions/upload-artifact@v1
         with:
           name: dist
           path: dist
@@ -29,14 +29,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@frontend
+        uses: actions/checkout@v1
       - name: Download artifact
-        uses: actions/download-artifact@frontend
+        uses: actions/download-artifact@v1
         with:
           name: dist
           path: dist
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@frontend
+        uses: w9jds/firebase-action@v1
         with:
           args: deploy --only hosting
         env: 
