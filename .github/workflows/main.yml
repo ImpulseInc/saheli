@@ -1,0 +1,51 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [ frontend ]
+    
+
+    
+  # Run workflow manually
+  workflow_dispatch:
+  
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.2
+      - name: Install dependencies
+        run: npm install
+      - name: Build dependencies
+        run: CI='' npm run build
+      - name: Archive production artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.2
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+      - name: Deploy to Firebase
+      
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env: 
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

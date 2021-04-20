@@ -79,7 +79,7 @@ export default function Dashboard(){
         place =null 
      } 
      else {
-       // selfHandler([users[0][2][1],users[0][2][1]])
+       // selfHandler([users[0][2][1],users[0][2][1]])//
        console.log(users)
 
          place =(
@@ -105,19 +105,20 @@ export default function Dashboard(){
             //     return(
             //         <Marker position={[lat,log]} 
             //         icon={redIcon }
-                    
+
             //         key={index}>
             //             <Popup
             //                 direction="bottom" 
             //                 offset={[-10, 20]} 
             //                 opacity={1}>
+
     
             //                 <Content 
             //                     name={x[0]} 
             //                     distance={x[1]}
             //                     destination={users[1][magic_number].destination} 
             //                     location={users[1][magic_number].vehicle}/>
-    
+
             //             </Popup>   
             //             <Circle
             //                 center={[lat,log]}                    
@@ -130,14 +131,16 @@ export default function Dashboard(){
             //    }
             //    else{
                
+
+
                 return(
                 <Marker position={[lat,log]} 
                 icon={greenIcon }
                 
                 key={index}>
                     <Popup
-                        direction="bottom" 
-                        offset={[-10, 20]} 
+                        // direction="bottom" 
+                        // offset={[-10, 200]} 
                         opacity={1}>
 
                         <Content 
@@ -147,12 +150,14 @@ export default function Dashboard(){
                             location={users[1][magic_number].vehicle}/>
 
                     </Popup>   
-                    <Circle
+                    {/* <Circle
                         center={[lat,log]}                    
                         pathOptions={{ fillColor: 'blue' }}
-                        radius={users[1][magic_number].prefer}>
-                        <Tooltip>{x[0]}</Tooltip>
-                    </Circle>
+
+                        radius={users[1][index].prefer}>
+                        //<Tooltip>{x[0]}</Tooltip>
+                    </Circle> */}
+
                 </Marker>   
                 )
             //}

@@ -105,7 +105,7 @@ class Navbar extends Component {
   
   <nav className=" navbar navbar-expand-lg sticky-top ">
 
-    <NavLink to="/home" className="navbar-brand">Saheli</NavLink>
+    <NavLink to="/dashboard" className="navbar-brand">Saheli</NavLink>
   
     <button className="navbar-toggler" type="button" data-toggle="collapse" 
     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

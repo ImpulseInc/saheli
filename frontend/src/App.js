@@ -32,7 +32,7 @@ function App() {
      <Route path="/travelForm" component={TravellingForm}/>
      <Route path="/group" component={Group}/>
     
-     <Redirect to="/dashboard"/> 
+     <Redirect to="/login"/> 
 
 
      </Switch>
