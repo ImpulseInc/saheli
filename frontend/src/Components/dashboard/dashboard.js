@@ -97,8 +97,8 @@ export default function Dashboard(){
                     
                     key={index}>
                         <Popup
-                            direction="bottom" 
-                            offset={[-10, 20]} 
+                            // direction="bottom" 
+                            // offset={[-100, 20]} 
                             opacity={1}>
     
                             <Content 
@@ -112,7 +112,7 @@ export default function Dashboard(){
                             center={[lat,log]}                    
                             pathOptions={{ fillColor: 'blue' }}
                             radius={users[1][index].prefer}>
-                            <Tooltip>{x[0]}</Tooltip>
+                         //   <Tooltip>{x[0]}</Tooltip>
                         </Circle>
                     </Marker>   
                     )
@@ -124,8 +124,8 @@ export default function Dashboard(){
                 
                 key={index}>
                     <Popup
-                        direction="bottom" 
-                        offset={[-10, 20]} 
+                        // direction="bottom" 
+                        // offset={[-10, 200]} 
                         opacity={1}>
 
                         <Content 
@@ -135,12 +135,12 @@ export default function Dashboard(){
                             location={users[1][index].vehicle}/>
 
                     </Popup>   
-                    <Circle
+                    {/* <Circle
                         center={[lat,log]}                    
                         pathOptions={{ fillColor: 'blue' }}
                         radius={users[1][index].prefer}>
-                        <Tooltip>{x[0]}</Tooltip>
-                    </Circle>
+                        //<Tooltip>{x[0]}</Tooltip>
+                    </Circle> */}
                 </Marker>   
                 )
             }}})
