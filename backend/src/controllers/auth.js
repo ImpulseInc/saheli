@@ -38,10 +38,8 @@ exports.signup = async(req , res , next) =>{
     ).catch((error) => {
         //TODO Better error
         res.status(401).send({"Type" : "Error" , "Message":"Signup Failed" + error})
-        //res.status(200).send({"sex" : "randi"})
     })
     console.log(req.body)
-    //res.status(200).send({"sex" : token})
 }
 
 exports.login = async(req , res , next) =>{
